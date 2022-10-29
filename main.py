@@ -104,12 +104,19 @@ tbosoPhoto = PhotoImage(file='image/Tambak Oso.png')
 tbsumurPhoto = PhotoImage(file='image/Tambak Sumur.png')
 juandaPhoto = PhotoImage(file='image/Juanda.png')
 serpongPhoto = PhotoImage(file='image/Serpong.png')
-serpongPhoto = PhotoImage(file='image/Tanjung Prok.png')
+tjpriokPhoto = PhotoImage(file='image/Tanjung Priok.png')
+tmminiPhoto = PhotoImage(file='image/Taman Mini.png')
 
 
 bawen = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen.grid(row=2, column = 1); 
 semarang = Button(Page2, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang.grid(row=2, column=2)
 solo = Button(Page2, image=soloPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=2, column=3)
+tboso = Button(Page2, image=tbosoPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=3, column=1)
+tbsumur = Button(Page2, image=tbsumurPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=3, column=2)
+juanda = Button(Page2, image=juandaPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=3, column=3)
+serpong = Button(Page2, image=serpongPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=1)
+tjpriok = Button(Page2, image=tjpriokPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=2)
+tmmini = Button(Page2, image=tmminiPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=3)
 
 tol2 = Label(Page2, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
 tol2.grid(row = 3, column = 1)
