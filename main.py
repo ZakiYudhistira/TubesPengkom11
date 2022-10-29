@@ -112,17 +112,17 @@ tmminiPhoto = PhotoImage(file='image/Taman Mini.png')
 bawen = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen.grid(row=2, column = 1); 
 semarang = Button(Page2, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang.grid(row=2, column=2)
 solo = Button(Page2, image=soloPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=2, column=3)
-tboso = Button(Page2, image=tbosoPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=3, column=1)
-tbsumur = Button(Page2, image=tbsumurPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=3, column=2)
-juanda = Button(Page2, image=juandaPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=3, column=3)
-serpong = Button(Page2, image=serpongPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=1)
-tjpriok = Button(Page2, image=tjpriokPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=2)
-tmmini = Button(Page2, image=tmminiPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=3)
+tboso = Button(Page2, image=tbosoPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=1)
+tbsumur = Button(Page2, image=tbsumurPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=2)
+juanda = Button(Page2, image=juandaPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=3)
+serpong = Button(Page2, image=serpongPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=6, column=1)
+tjpriok = Button(Page2, image=tjpriokPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=6, column=2)
+tmmini = Button(Page2, image=tmminiPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=6, column=3)
 
 tol2 = Label(Page2, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
 tol2.grid(row = 3, column = 1)
 
-button = [bawen, semarang, solo]; txtButton = ['bawen', 'semarang', 'solo']
+button = [bawen, semarang, solo, tboso, tbsumur, juanda, serpong, tjpriok, tmmini]; txtButton = ['bawen', 'semarang', 'solo']
 def Clicked(indexTolMasuk):
     for i in range(len(button)):
         button[i]['state'] = NORMAL
@@ -133,14 +133,14 @@ def Clicked(indexTolMasuk):
 def Submit():
     for i in range(len(button)):
         if i == entryNumber:
-            hasil = Label(Page2, text=txtButton[i]); hasil.grid(row=6, column=5)
+            hasil = Label(Page2, text=txtButton[i]); hasil.grid(row=7, column=5)
 
 
 bawen.config(command=lambda:Clicked(0))
 semarang.config(command=lambda:Clicked(1))
 solo.config(command=lambda:Clicked(2))
 
-submit = Button(Page2, text="Submit", command=Submit); submit.grid(row=5, column=5)
+submit = Button(Page2, text="Submit", command=Submit); submit.grid(row=8, column=5)
 
 
 
