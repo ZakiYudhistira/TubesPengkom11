@@ -100,6 +100,11 @@ tol1.grid(row = 1, column = 1)
 bawenPhoto = PhotoImage(file='image/Bawen.png')
 semarangPhoto = PhotoImage(file='image/Semarang.png')
 soloPhoto = PhotoImage(file='image/Solo.png')
+tbosoPhoto = PhotoImage(file='image/Tambak Oso.png')
+tbsumurPhoto = PhotoImage(file='image/Tambak Sumur.png')
+juandaPhoto = PhotoImage(file='image/Juanda.png')
+serpongPhoto = PhotoImage(file='image/Serpong.png')
+serpongPhoto = PhotoImage(file='image/Tanjung Prok.png')
 
 
 bawen = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen.grid(row=2, column = 1); 
