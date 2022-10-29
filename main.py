@@ -46,7 +46,6 @@ showFrame(Page1)
 waktu1 = datetime.now()
 waktuMasuk = waktu1.strftime("%H:%M:%S")
 def Login():
-    global success, username
     success = False
     try:
         auth.sign_in_with_email_and_password(loginEmail.get(), loginPass.get())
@@ -54,7 +53,6 @@ def Login():
         timeLogin.pack()
         LabelLoggedIn = Label(Page1, text="Successfully logged in!"); LabelLoggedIn.pack()
         success = True
-        username = str(loginEmail.get())
     except:
         success = False
         failLogIn = Label(Page1, text="Either email or password are wrong"); failLogIn.pack()
@@ -77,6 +75,8 @@ labelSignup = Label(Page1, text="Input ID", font=font); labelSignup.pack()
 signupEmail = Entry(Page1, width=100); signupEmail.pack()
 signupPass = Entry(Page1, width=100); signupPass.pack()
 SignupButton = Button(Page1, text="Sign Up", command=Signup); SignupButton.pack()
+global emailLogged; emailLogged = loginEmail.get()
+
 
 def firebaseconsole():
     webbrowser.open("https://console.firebase.google.com/u/0/project/tubes1-6911/authentication/users")
@@ -86,27 +86,36 @@ next = Button(Page1, text="Next", command=lambda: showFrame(Page2)); next.pack()
 # Label = Label(text= waktuMasuk)
 # Label.pack()
 
+
 # ------ PAGE 2 ----- #
+
 
 bgcolor = '#f9fbff'
 judul = Label(Page2, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10); judul.grid(row=0, column=3)
-user = Label(Page2, text=username); user.grid(row=0, column=8)
+accPhoto = PhotoImage(file='image/Akun.png')
+user = Label(Page2, image=accPhoto); user.grid(row=0, column=6)
 tol1 = Label(Page2, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
-tol1.grid(row = 1, column = 1); bawenPhoto = PhotoImage(file='image/Bawen.png')
+tol1.grid(row = 1, column = 1)
+
+bawenPhoto = PhotoImage(file='image/Bawen.png')
+semarangPhoto = PhotoImage(file='image/Semarang.png')
+soloPhoto = PhotoImage(file='image/Solo.png')
+
+
 bawen = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen.grid(row=2, column = 1); 
-semarang = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang.grid(row=2, column=2)
-solo = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=2, column=3)
+semarang = Button(Page2, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang.grid(row=2, column=2)
+solo = Button(Page2, image=soloPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=2, column=3)
 
 tol2 = Label(Page2, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
 tol2.grid(row = 3, column = 1)
 
 button = [bawen, semarang, solo]; txtButton = ['bawen', 'semarang', 'solo']
-def Clicked(ind):
+def Clicked(indexTolMasuk):
     for i in range(len(button)):
         button[i]['state'] = NORMAL
-    button[ind]['state'] = DISABLED
+    button[indexTolMasuk]['state'] = DISABLED
     global entryNumber
-    entryNumber = int(ind)
+    entryNumber = int(indexTolMasuk)
 
 def Submit():
     for i in range(len(button)):
