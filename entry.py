@@ -25,12 +25,12 @@ def Clicked(ind):
     for i in range(len(button)):
         button[i]['state'] = NORMAL
     button[ind]['state'] = DISABLED
-    global indexButton
-    indexButton = int(ind)
+    global entryNumber
+    entryNumber = int(ind)
 
 def Submit():
     for i in range(len(button)):
-        if i == indexButton:
+        if i == entryNumber:
             hasil = Label(entry, text=txtButton[i]); hasil.grid(row=6, column=5)
 
 

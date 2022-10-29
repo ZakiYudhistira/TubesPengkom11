@@ -3,7 +3,6 @@ import customtkinter
 from datetime import date, datetime
 from PIL import ImageTk, Image
 import pyrebase
-from entry import indexButton
 
 exit = Tk()
 bgcolor = '#f9fbff'
@@ -22,17 +21,17 @@ tol2 = Label(exit, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#00
 tol2.grid(row = 3, column = 1)
 
 button = [bawen, semarang, solo]; txtButton = ['bawen', 'semarang', 'solo']
-print(indexButton)
+print(exitNumber)
 def Clicked(ind):
     for i in range(len(button)):
         button[i]['state'] = NORMAL
     button[ind]['state'] = DISABLED
-    global indexButton, txt
-    indexButton = int(ind)
+    global exitNumber, txt
+    exitNumber = int(ind)
 
 def Submit():
     for i in range(len(button)):
-        if i == indexButton:
+        if i == exitNumber:
             hasil = Label(exit, text=txtButton[i]); hasil.grid(row=6, column=5)
 
 
