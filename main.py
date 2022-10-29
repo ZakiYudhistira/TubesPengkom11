@@ -1,9 +1,11 @@
 from cProfile import label
+import pathlib
 from tkinter import *
 from datetime import date, datetime
 from PIL import ImageTk, Image
 import pyrebase
 import webbrowser
+import openpyxl, xlrd
 
 firebaseConfig={'apiKey': "AIzaSyDR4ZslCMZgrl2O1DDzBgoaspzzTScCYoE",
     'authDomain': "tubes1-6911.firebaseapp.com",
@@ -14,11 +16,10 @@ firebaseConfig={'apiKey': "AIzaSyDR4ZslCMZgrl2O1DDzBgoaspzzTScCYoE",
     'appId': "1:437693074566:web:25f5e30e76bf8a1dccd507",
     'measurementId': "G-Q2YCXF2SYT"
 }
-firebase = pyrebase.initialize_app(firebaseConfig)
 
-db=firebase.database()
-auth=firebase.auth()
-storage=firebase.storage()
+firebase = pyrebase.initialize_app(firebaseConfig)
+db=firebase.database(); auth=firebase.auth(); storage=firebase.storage()
+# file = pathlib.Path('database.xlsx')
 
 def showFrame(frame):
     frame.tkraise()
@@ -38,19 +39,13 @@ windowUtama.configure(bg='#f0f4fa')
 
 showFrame(Page1)
 
-# def NextPage():
-#     global LoginPage, canvas1
-#     LoginPage = Toplevel()
-#     canvas1 = Canvas(LoginPage, width=width, height = height); canvas1.pack()
-
 waktu1 = datetime.now()
 waktuMasuk = waktu1.strftime("%H:%M:%S")
 def Login():
     success = False
     try:
         auth.sign_in_with_email_and_password(loginEmail.get(), loginPass.get())
-        timeLogin = Label(Page1, text="Logged in at " + waktuMasuk)
-        timeLogin.pack()
+        timeLogin = Label(Page1, text="Logged in at " + waktuMasuk); timeLogin.pack()
         LabelLoggedIn = Label(Page1, text="Successfully logged in!"); LabelLoggedIn.pack()
         success = True
     except:
@@ -62,9 +57,6 @@ def Signup():
     try:
         auth.create_user_with_email_and_password(signupEmail.get(), signupPass.get())
         LabelSignedUp = Label(Page1, text="Successfully created an account!"); LabelSignedUp.pack()
-        # saldo = int(firstSaldo.get())
-        # userData = {'mail': loginEmail.get(), 'pass': signupPass.get(), 'saldo': saldo}
-        # db.push(userData)
     except:
         failSignedUp = Label(Page1, text="Sign Up Failed"); failSignedUp.pack()
 
@@ -75,12 +67,18 @@ loginEmail = Entry(Page1, width=100); loginEmail.pack()
 loginPass = Entry(Page1, width=100); loginPass.pack()
 LoginButton = Button(Page1, text="Login", command=Login); LoginButton.pack()
 
+emailSignup = StringVar(); passSignup = StringVar(); saldoSignup = StringVar()
 labelSignup = Label(Page1, text="Input ID", font=font); labelSignup.pack()
-signupEmail = Entry(Page1, width=100); signupEmail.pack()
-signupPass = Entry(Page1, width=100); signupPass.pack()
-reviewSignupPass = Entry(Page1, width=100); reviewSignupPass.pack()
-firstSaldo = Entry(Page1, width=100); firstSaldo.pack()
+signupEmail = Entry(Page1, textvariable=emailSignup, width=100); signupEmail.pack()
+signupPass = Entry(Page1, textvariable=passSignup, width=100); signupPass.pack()
+# reviewSignupPass = Entry(Page1, width=100); reviewSignupPass.pack()
+firstSaldo = Entry(Page1, textvariable=saldoSignup, width=100); firstSaldo.pack()
 SignupButton = Button(Page1, text="Sign Up", command=Signup); SignupButton.pack()
+
+def Push():
+    mail = emailSignup.get(); password = passSignup.get(); saldo = saldoSignup.get()
+
+
 
 # if reviewSignupPass.get() != signupPass:
 #     PassnotSame = Label()
