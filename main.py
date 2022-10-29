@@ -65,6 +65,7 @@ def Signup():
     except:
         failSignedUp = Label(Page1, text="Sign Up Failed"); failSignedUp.pack()
 
+global emailLogged, loginEmail
 font = ("Montserrat", 10, "bold")
 labelLogin = Label(Page1, text="Input ID", font= font); labelLogin.pack()
 loginEmail = Entry(Page1, width=100); loginEmail.pack()
@@ -75,7 +76,7 @@ labelSignup = Label(Page1, text="Input ID", font=font); labelSignup.pack()
 signupEmail = Entry(Page1, width=100); signupEmail.pack()
 signupPass = Entry(Page1, width=100); signupPass.pack()
 SignupButton = Button(Page1, text="Sign Up", command=Signup); SignupButton.pack()
-global emailLogged; emailLogged = loginEmail.get()
+emailLogged = str(loginEmail.get())
 
 
 def firebaseconsole():
@@ -94,13 +95,13 @@ bgcolor = '#f9fbff'
 judul = Label(Page2, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10); judul.grid(row=0, column=3)
 accPhoto = PhotoImage(file='image/Akun.png')
 user = Label(Page2, image=accPhoto); user.grid(row=0, column=6)
+text = Label(Page2, text=emailLogged); user.grid(row=0, column=7)
 tol1 = Label(Page2, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
 tol1.grid(row = 1, column = 1)
 
 bawenPhoto = PhotoImage(file='image/Bawen.png')
 semarangPhoto = PhotoImage(file='image/Semarang.png')
 soloPhoto = PhotoImage(file='image/Solo.png')
-
 
 bawen = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen.grid(row=2, column = 1); 
 semarang = Button(Page2, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang.grid(row=2, column=2)
