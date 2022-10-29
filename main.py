@@ -77,6 +77,7 @@ SignupButton = Button(Page1, text="Sign Up", command=Signup); SignupButton.pack(
 
 def Push():
     mail = emailSignup.get(); password = passSignup.get(); saldo = saldoSignup.get()
+    
 
 
 
