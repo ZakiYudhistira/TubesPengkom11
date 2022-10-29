@@ -25,18 +25,13 @@ def showFrame(frame):
 
 windowUtama = Tk()
 windowUtama.state('zoomed')
-# windowUtama.rowconfigure(0, weight=1)
-# windowUtama.columnconfigure(0, weight=1)
 windowUtama.title("Welcome to Jasamarga Tol")
-width = int(windowUtama.winfo_screenwidth()); height = int(windowUtama.winfo_screenheight())
-Page1 = Frame(windowUtama, width=1466, height=720); Page1.grid(row=0, column=0, sticky='nsew')
-Page2 = Frame(windowUtama, width=width, height=height); Page2.grid(row=0, column=0, sticky='nsew')
-Page3 = Frame(windowUtama, width=width, height=height); Page3.grid()
+width = windowUtama.winfo_screenwidth(); height = windowUtama.winfo_screenheight()
+Page1 = Frame(windowUtama, width=width, height=height); Page1.pack()
+Page2 = Frame(windowUtama, width=width, height=height); Page2.pack()
+Page3 = Frame(windowUtama, width=width, height=height); Page3.pack()
 # icon = Image.open('icon toll.png'); ico = ImageTk.PhotoImage(icon); Page1.wm_iconphoto(False, ico)
 windowUtama.configure(bg='#f0f4fa')
-
-
-showFrame(Page1)
 
 # def NextPage():
 #     global LoginPage, canvas1
@@ -46,26 +41,23 @@ showFrame(Page1)
 waktu1 = datetime.now()
 waktuMasuk = waktu1.strftime("%H:%M:%S")
 def Login():
-    global success, username
+    # global success
     success = False
     try:
-        auth.sign_in_with_email_and_password(loginEmail.get(), loginPass.get())
         timeLogin = Label(Page1, text="Logged in at " + waktuMasuk)
         timeLogin.pack()
+        auth.sign_in_with_email_and_password(loginEmail.get(), loginPass.get())
         LabelLoggedIn = Label(Page1, text="Successfully logged in!"); LabelLoggedIn.pack()
-        success = True
-        username = str(loginEmail.get())
+
     except:
-        success = False
         failLogIn = Label(Page1, text="Either email or password are wrong"); failLogIn.pack()
-    if success == True:
-        showFrame(Page2)
+        success = False
+    # if success == True:
+    #     lambda: show_frame(canvas1)
+
 def Signup():
-    try:
-        auth.create_user_with_email_and_password(signupEmail.get(), signupPass.get())
-        LabelSignedUp = Label(Page1, text="Successfully created an account!"); LabelSignedUp.pack()
-    except:
-        failSignedUp = Label(Page1, text="Sign Up Failed"); failSignedUp.pack()
+    auth.create_user_with_email_and_password(signupEmail.get(), signupPass.get())
+    LabelSignedUp = Label(Page1, text="Successfully created an account!"); LabelSignedUp.pack()
 
 font = ("Montserrat", 10, "bold")
 labelLogin = Label(Page1, text="Input ID", font= font); labelLogin.pack()
@@ -85,12 +77,8 @@ next = Button(Page1, text="Next", command=lambda: showFrame(Page2)); next.pack()
 
 # Label = Label(text= waktuMasuk)
 # Label.pack()
-
-# ------ PAGE 2 ----- #
-
 bgcolor = '#f9fbff'
 judul = Label(Page2, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10); judul.grid(row=0, column=3)
-user = Label(Page2, text=username); user.grid(row=0, column=8)
 tol1 = Label(Page2, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
 tol1.grid(row = 1, column = 1); bawenPhoto = PhotoImage(file='image/Bawen.png')
 bawen = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen.grid(row=2, column = 1); 
