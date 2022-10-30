@@ -145,6 +145,12 @@ def openAcc():
 # ------ PAGE 2 ----- # (Golongan Kendaraan)
 
 
+# Tarif Jakarta - Semarang : I=800 II=1200 III=1600
+# Tarif Semarang - Surabaya : I = 950 II=1450 III=1900
+#Tarif subtol Jakarta = 300
+#Tarif subtol Semarang = 400
+#Tarif subtol Surabaya =450
+
 bgcolor = '#f9fbff'
 Label(Page2, text="Pilih Golongan Kendaraan", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=20)
 accPhoto = PhotoImage(file='image/Akun.png')
@@ -171,9 +177,11 @@ def SubmitGol():
     if golNumber != '':
         showFrame(Page3)
 
+gol1.config(command=lambda:ClickedGol(0))
+gol2.config(command=lambda:ClickedGol(1))
+gol3.config(command=lambda:ClickedGol(2))
 for i in range(len(arrGolongan)):
-    arrGolongan[i].place(x=30+(i*150), y=60)
-    arrGolongan[i].config(command=lambda:ClickedGol(i))
+    arrGolongan[i].place(x=100+(i*200), y=60)
 
 Button(Page2, text="Next", command=SubmitGol).place(x=50, y=400)
 
@@ -237,13 +245,17 @@ def SubmitIn():
             if i < 3:
                 kmMasuk = Semarang_tol[i%3][1]
                 sheet2.cell(column=10, row=sheet2.max_row, value="Semarang")
+                tarif = Semarang_tol[i%3][1]*400
             elif 3 <= i < 6:
                 kmMasuk = Surabaya_tol[i%3][1]
                 sheet2.cell(column=10, row=sheet2.max_row, value="Surabaya")
+                tarif = Surabaya_tol[i%3][1]*450
             elif 6 <= i < 9:
                 kmMasuk = Jakarta_tol[i%3][1]
                 sheet2.cell(column=10, row=sheet2.max_row, value="Jakarta")
+                tarif = Jakarta_tol[i%3][1]*300
             gtMasuk = str(txtButton[i])
+            sheet2.cell(column=12, row=sheet2.max_row, value=tarif)
             sheet2.cell(column=1, row=sheet2.max_row, value=waktuMasuk)
             sheet2.cell(column=2, row=sheet2.max_row, value=gtMasuk)
             sheet2.cell(column=3, row=sheet2.max_row, value=kmMasuk)
@@ -300,13 +312,17 @@ def SubmitExit():
             if i < 3:
                 kmKeluar = Semarang_tol[i%3][1]
                 sheet2.cell(column=11, row=sheet2.max_row, value="Semarang")
+                tarif = sheet2.cell(column=12, row=sheet2.max_row).value + Semarang_tol[i%3][1]*400
             elif 3 <= i < 6:
                 kmKeluar = Surabaya_tol[i%3][1]
                 sheet2.cell(column=11, row=sheet2.max_row, value="Surabaya")
+                tarif = sheet2.cell(column=12, row=sheet2.max_row).value + Surabaya_tol[i%3][1]*450
             elif 6 <= i < 9:
                 kmKeluar = Jakarta_tol[i%3][1]
                 sheet2.cell(column=11, row=sheet2.max_row, value="Jakarta")
+                tarif = sheet2.cell(column=12, row=sheet2.max_row).value + Jakarta_tol[i%3][1]*300
             gtKeluar = str(txtButton2[i])
+            sheet2.cell(column=12, row=sheet2.max_row, value=tarif)
             sheet2.cell(column=4, row=sheet2.max_row, value=waktuKeluar)
             sheet2.cell(column=5, row=sheet2.max_row, value=gtKeluar)
             sheet2.cell(column=6, row=sheet2.max_row, value=kmKeluar)
@@ -342,52 +358,22 @@ Surabaya_tol =( ["Juanda",12.8],
 Semarang = False
 Jakarta = False
 Surabaya = False
-jarak = 0
 
-def hitungJarak():
-    for i in range(3):
-        if gtMasuk == Semarang_tol[i][0]:
-            jarak = jarak + Semarang_tol[i][1]
-            sheet2.cell(column=3, row=sheet2.max_row, value=Semarang_tol[i][1])
-            Semarang = True
-        if gtMasuk == Jakarta_tol[i][0]:
-            jarak = jarak + Jakarta_tol[i][1]
-            sheet2.cell(column=3, row=sheet2.max_row, value=Jakarta_tol[i][1])
-            Jakarta = True
-        if gtMasuk == Surabaya_tol[i][0]:
-            jarak = jarak + Surabaya_tol[i][1]
-            sheet2.cell(column=3, row=sheet2.max_row, value=Surabaya_tol[i][1])
-            Surabaya = True
-    for j in range(3):
-        if gtKeluar == Semarang_tol[j][0]:
-            jarak = jarak + Semarang_tol[j][1]
-            sheet2.cell(column=6, row=sheet2.max_row, value=Semarang_tol[i][1])
-            Semarang = True
-        if gtKeluar == Jakarta_tol[j][0]:
-            jarak = jarak + Jakarta_tol[j][1]
-            sheet2.cell(column=6, row=sheet2.max_row, value=Jakarta_tol[i][1])
-            Jakarta = True
-        if gtKeluar == Surabaya_tol[j][0]:
-            jarak = jarak + Surabaya_tol[j][1]
-            sheet2.cell(column=6, row=sheet2.max_row, value=Surabaya_tol[i][1])
-            Surabaya = True
-    if Surabaya == True and Jakarta == True:
-        jarak = jarak + 797
-    elif Surabaya == True and Semarang == True:
-        jarak = jarak + 351
-    elif Jakarta == True and Semarang == True:
-        jarak = jarak + 446
-    # print(f"Total jarak yang ditempuh adalah {jarak}")
+def jarakAkhir():
+    In = sheet2.cell(column=10, row=sheet2.max_row).value; Out = sheet2.cell(column=11, row=sheet2.max_row).value
+    jarak = sheet2.cell(column=6, row=sheet2.max_row).value + sheet2.cell(column=3, row=sheet2.max_row).value
+    tarifAkhir = sheet2.cell(column=12, row=sheet2.max_row).value #sudah biaya entry dan exit
+    if In == 'Jakarta' and Out == 'Surabaya' or In == 'Surabaya' and Out == 'Jakarta':
+        jarak += 797
+    if In == 'Semarang' and Out == 'Surabaya' or In == 'Surabaya' and Out == 'Semarang':
+        jarak += 351
+    if In == 'Jakarta' and Out == 'Semarang' or In == 'Semarang' and Out == 'Jakarta':
+        jarak += 446
     sheet2.cell(column=7, row=sheet2.max_row, value=jarak)
     file.save(r'database.xlsx')
+    Label(Page5, text=jarak).place(x=100, y=100)
 
-Button(Page5, text="Tampilkan Hasil", command="hitungJarak").place(x=50, y=10)
 
-file.save(r'database.xlsx')
-
-if 'userAcc' in globals():
-    print("True")
-else:
-    print("False")
+Button(Page5, text="Tampilkan Hasil", command=jarakAkhir).place(x=50, y=10)
 
 windowUtama.mainloop()

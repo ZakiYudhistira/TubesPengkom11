@@ -83,6 +83,7 @@ def hitungtariftruk(tarifentry,tarifexit):
         hasil = (351*1900) + tarifentry + tarifexit
     elif Jakarta == True and Semarang == True :
         hasil = (446*1600) + tarifentry + tarifexit
+    print(hasil)
     return hasil
 # Mobil Pribadi = I
 # Bus = II
@@ -94,4 +95,5 @@ def hitungtarif(Golongan):
         tarif = hitungtarifbus(tarifentry,tarifexit)
     elif Golongan == 'III':
         tarif = hitungtariftruk(tarifentry,tarifexit)
+    print(tarif)
     return tarif
