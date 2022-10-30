@@ -43,3 +43,22 @@ elif Surabaya == True and Semarang == True:
 elif Jakarta == True and Semarang == True:
     jarak = jarak + 446
 print(f"Total jarak yang ditempuh adalah {jarak}")
+
+
+def hitungtarifmobil(jarak):    
+    return
+def hitungtariftruk(jarak):
+    return
+def hitungtarifbus(jarak):
+    return
+# Mobil Pribadi = I
+# Bus = II
+# Truk = III
+def hitungtarif(Golongan):
+    if Golongan == 'I':
+        tarif = hitungtarifmobil(jarak)
+    elif Golongan == 'II':
+        tarif = hitungtariftruk(jarak)
+    elif Golongan == 'III':
+        tarif = hitungtarifbus(jarak)
+    return tarif
