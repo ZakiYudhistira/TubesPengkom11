@@ -96,8 +96,6 @@ judul = Label(Page2, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='
 accPhoto = PhotoImage(file='image/Akun.png')
 user = Label(Page2, image=accPhoto); user.grid(row=0, column=6)
 text = Label(Page2, text=emailLogged); user.grid(row=0, column=7)
-tol1 = Label(Page2, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
-tol1.grid(row = 1, column = 1)
 
 bawenPhoto = PhotoImage(file='image/Bawen.png')
 semarangPhoto = PhotoImage(file='image/Semarang.png')
@@ -112,17 +110,18 @@ tmminiPhoto = PhotoImage(file='image/Taman Mini.png')
 bawen = Button(Page2, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen.grid(row=2, column = 1); 
 semarang = Button(Page2, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang.grid(row=2, column=2)
 solo = Button(Page2, image=soloPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=2, column=3)
-tboso = Button(Page2, image=tbosoPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=1)
-tbsumur = Button(Page2, image=tbsumurPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=2)
-juanda = Button(Page2, image=juandaPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=4, column=3)
-serpong = Button(Page2, image=serpongPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=6, column=1)
-tjpriok = Button(Page2, image=tjpriokPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=6, column=2)
-tmmini = Button(Page2, image=tmminiPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo.grid(row=6, column=3)
+tboso = Button(Page2, image=tbosoPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tboso.grid(row=4, column=1)
+tbsumur = Button(Page2, image=tbsumurPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tbsumur.grid(row=4, column=2)
+juanda = Button(Page2, image=juandaPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); juanda.grid(row=4, column=3)
+serpong = Button(Page2, image=serpongPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); serpong.grid(row=6, column=1)
+tjpriok = Button(Page2, image=tjpriokPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tjpriok.grid(row=6, column=2)
+tmmini = Button(Page2, image=tmminiPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tmmini.grid(row=6, column=3)
 
-tol2 = Label(Page2, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor)
-tol2.grid(row = 3, column = 1)
+tol1 = Label(Page2, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor) ; tol1.grid(row = 1, column = 1)
+tol2 = Label(Page2, text="Tol Surabaya", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor) ; tol2.grid(row = 3, column = 1)
+tol3 = Label(Page2, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor) ; tol3.grid(row = 5, column = 1)
 
-button = [bawen, semarang, solo, tboso, tbsumur, juanda, serpong, tjpriok, tmmini]; txtButton = ['bawen', 'semarang', 'solo']
+button = [bawen, semarang, solo, tboso, tbsumur, juanda, serpong, tjpriok, tmmini]; txtButton = ['Bawen', 'Semarang', 'Solo','Tambak Oso','Tambak Sumur','Juanda','Serpong','Tanjung Priok','Taman Mini']
 def Clicked(indexTolMasuk):
     for i in range(len(button)):
         button[i]['state'] = NORMAL
@@ -133,12 +132,18 @@ def Clicked(indexTolMasuk):
 def Submit():
     for i in range(len(button)):
         if i == entryNumber:
-            hasil = Label(Page2, text=txtButton[i]); hasil.grid(row=7, column=5)
+            hasil = Label(Page2, text=txtButton[i]); hasil.grid(row=9, column=5)
 
 
 bawen.config(command=lambda:Clicked(0))
 semarang.config(command=lambda:Clicked(1))
 solo.config(command=lambda:Clicked(2))
+tboso.config(command=lambda:Clicked(3))
+tbsumur.config(command=lambda:Clicked(4))
+juanda.config(command=lambda:Clicked(5))
+serpong.config(command=lambda:Clicked(6))
+tjpriok.config(command=lambda:Clicked(7))
+tmmini.config(command=lambda:Clicked(8))
 
 submit = Button(Page2, text="Submit", command=Submit); submit.grid(row=8, column=5)
 
