@@ -1,14 +1,8 @@
-person1 = {
-    "name": "Bagas",
-    "age": "26",
-    "pass": "Helloworld 69"
-};
-
-person2 = {
-    "name": "Tot",
-    "age": "69",
-    "pass" : "Wow - well"
-}
-
-def greeting(nama):
-    print("Hallo, " + nama)
+from tkinter import *
+dashboard = Tk()
+dashboard.geometry('400x500')
+dashboard.title("Account Dashboard")
+Label(dashboard, text="Account Management", font=("Montserrat", 16, 'bold')).place(x=40, y=10)
+Label(dashboard, text="Email", font=("Calibri", 12, 'bold')).place(x=40, y=70)
+Label(dashboard, text="bagas@mail", font=("Calibri", 12), padx = 10, bg='#f9fbff').place(x=100, y=70)
+dashboard.mainloop()
