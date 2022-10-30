@@ -47,6 +47,9 @@ sheet2 = file["log"]
 
 waktu1 = datetime.now()
 waktuMasuk = waktu1.strftime("%H:%M:%S")
+
+# -- PAGE 1 -- # (Login Signup Page)
+
 def Login():
     success = False
     try:
@@ -97,20 +100,30 @@ next = Button(Page1, text="Next", command=lambda: showFrame(Page2)); next.pack()
 # Label = Label(text= waktuMasuk)
 # Label.pack()
 
+#-- ACCOUNT DASHBOARD --#
+def openAcc():
+    dashboard = Toplevel()
+    dashboard.geometry('400x500')
+    dashboard.title("Account Dashboard")
 
-# ------ PAGE 2 ----- #
+    Label(dashboard, text="Account Management", font=("Montserrat", 16, 'bold')).place(x=40, y=10)
+    dashboard.mainloop()
+
+# ------ PAGE 2 ----- # (Golongan Kendaraan)
 
 
 bgcolor = '#f9fbff'
 Label(Page2, text="Pilih Golongan Kendaraan", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=10)
 Button(Page2, text="Next", command=lambda: showFrame(Page3)).place(x=50, y=100)
+accPhoto = PhotoImage(file='image/Akun.png')
+user = Button(Page2, image=accPhoto, command=openAcc); user.place(x=90, y=10)
 
 
-# ------ PAGE 3 ----- #
+# ------ PAGE 3 ----- # (Gerbang Masuk)
 
 
 Label(Page3, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).grid(row=0, column=3)
-accPhoto = PhotoImage(file='image/Akun.png')
+
 def openAcc():
     dashboard = Toplevel()
     dashboard.geometry('400x500')
@@ -170,11 +183,12 @@ solo.config(command=lambda:Clicked(2))
 submit = Button(Page3, text="Submit", command=Submit); submit.grid(row=8, column=5)
 
 
-# -- PAGE 4 -- #
+# -- PAGE 4 -- # (Gerbang Keluar)
 
 
 Label(Page4, text="Gerbang Keluar", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=10)
 Button(Page4, text="Next").place(x=50, y=100)
 
+# -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
 
 windowUtama.mainloop()
