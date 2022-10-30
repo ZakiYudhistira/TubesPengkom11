@@ -147,9 +147,35 @@ def openAcc():
 
 bgcolor = '#f9fbff'
 Label(Page2, text="Pilih Golongan Kendaraan", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=20)
-Button(Page2, text="Next", command=lambda: showFrame(Page3)).place(x=50, y=100)
 accPhoto = PhotoImage(file='image/Akun.png')
 user = Button(Page2, image=accPhoto, command=openAcc); user.place(x=width-70, y=20)
+fotogol1 = PhotoImage(file="image/golongan1.png")
+fotogol2 = PhotoImage(file="image/golongan2.png")
+fotogol3 = PhotoImage(file="image/golongan3.png")
+gol1 = Button(Page2, image=fotogol1, state=NORMAL)
+gol2 = Button(Page2, image=fotogol2, state=NORMAL)
+gol3 = Button(Page2, image=fotogol3, state=NORMAL)
+arrGolongan = [gol1, gol2, gol3]
+
+def ClickedGol(indexGolongan):
+    for i in range(len(arrGolongan)):
+        arrGolongan[i]['state'] = NORMAL
+    arrGolongan[indexGolongan]['state'] = DISABLED
+    global golNumber
+    golNumber = int(indexGolongan)
+
+def SubmitGol():
+    global golKendaraan
+    sheet2.cell(column=9, row=sheet2.max_row, value=golNumber)
+    file.save(r'database.xlsx')
+    if golNumber != '':
+        showFrame(Page3)
+
+for i in range(len(arrGolongan)):
+    arrGolongan[i].place(x=30+(i*150), y=60)
+    arrGolongan[i].config(command=lambda:ClickedGol(i))
+
+Button(Page2, text="Next", command=SubmitGol).place(x=50, y=400)
 
 # ------ PAGE 3 ----- # (Gerbang Masuk)
 
@@ -207,14 +233,16 @@ def ClickedIn(indexTolMasuk):
 def SubmitIn():
     global gtMasuk
     for i in range(len(button)):
-        
         if i == entryNumber:
             if i < 3:
                 kmMasuk = Semarang_tol[i%3][1]
+                sheet2.cell(column=10, row=sheet2.max_row, value="Semarang")
             elif 3 <= i < 6:
                 kmMasuk = Surabaya_tol[i%3][1]
+                sheet2.cell(column=10, row=sheet2.max_row, value="Surabaya")
             elif 6 <= i < 9:
                 kmMasuk = Jakarta_tol[i%3][1]
+                sheet2.cell(column=10, row=sheet2.max_row, value="Jakarta")
             gtMasuk = str(txtButton[i])
             sheet2.cell(column=1, row=sheet2.max_row, value=waktuMasuk)
             sheet2.cell(column=2, row=sheet2.max_row, value=gtMasuk)
@@ -244,7 +272,7 @@ waktuKeluar = waktu2.strftime("%H:%M:%S")
 
 Label(Page4, text="Gerbang Keluar", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=10)
 # Label(Page4, text=gtMasuk).place(x=10, y=100)
-Button(Page4, text="Next").place(x=50, y=100)
+
 
 bawen2 = Button(Page4, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen2.grid(row=2, column = 1); 
 semarang2 = Button(Page4, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang2.grid(row=2, column=2)
@@ -271,12 +299,13 @@ def SubmitExit():
         if i == exitNumber:
             if i < 3:
                 kmKeluar = Semarang_tol[i%3][1]
+                sheet2.cell(column=11, row=sheet2.max_row, value="Semarang")
             elif 3 <= i < 6:
                 kmKeluar = Surabaya_tol[i%3][1]
+                sheet2.cell(column=11, row=sheet2.max_row, value="Surabaya")
             elif 6 <= i < 9:
                 kmKeluar = Jakarta_tol[i%3][1]
-            # hasil = Label(Page3, text=txtButton[i]); hasil.grid(row=9, column=5)
-            # hasil = Label(Page2, textvariable=v, text=txtButton[i]); hasil.grid(row=7, column=5)
+                sheet2.cell(column=11, row=sheet2.max_row, value="Jakarta")
             gtKeluar = str(txtButton2[i])
             sheet2.cell(column=4, row=sheet2.max_row, value=waktuKeluar)
             sheet2.cell(column=5, row=sheet2.max_row, value=gtKeluar)

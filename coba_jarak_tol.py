@@ -45,7 +45,7 @@ elif Jakarta == True and Semarang == True:
 print(f"Total jarak yang ditempuh adalah {jarak}")
 
 
-def hitungtarifmobil(jarak):    
+def hitungtarifmobil(jarak):
     return
 def hitungtariftruk(jarak):
     return

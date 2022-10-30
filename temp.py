@@ -151,13 +151,6 @@ Button(Page2, text="Next", command=lambda: showFrame(Page3)).place(x=50, y=100)
 accPhoto = PhotoImage(file='image/Akun.png')
 user = Button(Page2, image=accPhoto, command=openAcc); user.place(x=width-70, y=20)
 
-# -- FUNGSI JARAK --#
-
-
-
-
-
-
 # ------ PAGE 3 ----- # (Gerbang Masuk)
 
 waktu1 = datetime.now()
@@ -192,6 +185,17 @@ Label(Page3, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000'
 tol2 = Label(Page3, text="Tol Surabaya", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 3, column = 1)
 tol3 = Label(Page3, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 5, column = 1)
 
+
+Semarang_tol = (["Bawen",23.1],
+                ["Semarang",0],
+                ["Solo",40])
+Surabaya_tol =( ["Tambak Oso",9],
+                ["Tambak Sumur",5],
+                ["Juanda",12.8])
+Jakarta_tol = ( ["Serpong",10.1],
+                ["Tanjung Priok",12.1],
+                ["Taman Mini",4.5])
+
 button = [bawen, semarang, solo, tboso, tbsumur, juanda, serpong, tjpriok, tmmini]; txtButton = ['Bawen', 'Semarang', 'Solo','Tambak Oso','Tambak Sumur','Juanda','Serpong','Tanjung Priok','Taman Mini']
 def ClickedIn(indexTolMasuk):
     for i in range(len(button)):
@@ -203,12 +207,18 @@ def ClickedIn(indexTolMasuk):
 def SubmitIn():
     global gtMasuk
     for i in range(len(button)):
+        
         if i == entryNumber:
-            # hasil = Label(Page3, text=txtButton[i]); hasil.grid(row=9, column=5)
-            # hasil = Label(Page2, textvariable=v, text=txtButton[i]); hasil.grid(row=7, column=5)
-            gtMasuk = str(txtButton[i]); 
+            if i < 3:
+                kmMasuk = Semarang_tol[i%3][1]
+            elif 3 <= i < 6:
+                kmMasuk = Surabaya_tol[i%3][1]
+            elif 6 <= i < 9:
+                kmMasuk = Jakarta_tol[i%3][1]
+            gtMasuk = str(txtButton[i])
             sheet2.cell(column=1, row=sheet2.max_row, value=waktuMasuk)
             sheet2.cell(column=2, row=sheet2.max_row, value=gtMasuk)
+            sheet2.cell(column=3, row=sheet2.max_row, value=kmMasuk)
             file.save(r'database.xlsx')
     if entryNumber != '':
         showFrame(Page4)
@@ -259,12 +269,18 @@ def SubmitExit():
     global gtKeluar
     for i in range(len(button2)):
         if i == exitNumber:
+            if i < 3:
+                kmKeluar = Semarang_tol[i%3][1]
+            elif 3 <= i < 6:
+                kmKeluar = Surabaya_tol[i%3][1]
+            elif 6 <= i < 9:
+                kmKeluar = Jakarta_tol[i%3][1]
             # hasil = Label(Page3, text=txtButton[i]); hasil.grid(row=9, column=5)
             # hasil = Label(Page2, textvariable=v, text=txtButton[i]); hasil.grid(row=7, column=5)
             gtKeluar = str(txtButton2[i])
             sheet2.cell(column=4, row=sheet2.max_row, value=waktuKeluar)
             sheet2.cell(column=5, row=sheet2.max_row, value=gtKeluar)
-            
+            sheet2.cell(column=6, row=sheet2.max_row, value=kmKeluar)
             file.save(r'database.xlsx')
     if exitNumber != '':
         showFrame(Page5)
