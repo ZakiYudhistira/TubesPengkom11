@@ -68,10 +68,12 @@ def Signup():
         auth.create_user_with_email_and_password(signupEmail.get(), signupPass.get())
         LabelSignedUp = Label(Page1, text="Successfully created an account!"); LabelSignedUp.pack()
         mail = emailSignup.get(); password = passSignup.get(); saldo = saldoSignup.get(); name = nameSignup.get() 
-        sheet1.cell(column=2, row=sheet1.max_row+1, value=mail)
-        sheet1.cell(column=3, row=sheet1.max_row, value=name)
-        sheet1.cell(column=5, row=sheet1.max_row, value=password)
-        sheet1.cell(column=6, row=sheet1.max_row, value=saldo)
+        sheet1.cell(column=1, row=sheet1.max_row+1, value=mail)
+        sheet1.cell(column=2, row=sheet1.max_row, value=name)
+        sheet1.cell(column=4, row=sheet1.max_row, value=password)
+        sheet1.cell(column=5, row=sheet1.max_row, value=saldo)
+        file.save(r'database.xlsx')
+        emailSignup.set(''); passSignup.set(''); saldo = saldoSignup.set(''); name = nameSignup.set('') 
     except:
         failSignedUp = Label(Page1, text="Sign Up Failed"); failSignedUp.pack()
 
@@ -103,8 +105,6 @@ def firebaseconsole():
 startButton = Button(Page1, text="Manage", command=firebaseconsole); startButton.pack()
 next = Button(Page1, text="Next", command=lambda: showFrame(Page2)); next.pack()
 
-# Label = Label(text= waktuMasuk)
-# Label.pack()
 
 #-- ACCOUNT DASHBOARD --#
 def openAcc():
@@ -112,8 +112,15 @@ def openAcc():
     dashboard.geometry('400x500')
     dashboard.title("Account Dashboard")
     Label(dashboard, text="Account Management", font=("Montserrat", 16, 'bold')).place(x=40, y=10)
-    Label(dashboard, text=userAcc).place(x=20, y=30)
+    Label(dashboard, text="Email", font=("Calibri", 12, 'bold')).place(x=40, y=70)
+    for row in range(1, sheet1.max_row+1):
+        if userAcc == sheet1['A' + str(row)].value:
+            saldo = sheet1['E' + str(row)].value
+    Label(dashboard, text=userAcc, font=("Calibri", 12), padx = 10, bg='#f9fbff').place(x=100, y=70)
+    Label(dashboard, text=saldo, font=("Calibri", 12), padx=10, bg=bgcolor).place(x=100, y=100)
+
     dashboard.mainloop()
+
 
 # ------ PAGE 2 ----- # (Golongan Kendaraan)
 
@@ -247,14 +254,13 @@ serpong2.config(command=lambda:ClickedOut(6))
 tjpriok2.config(command=lambda:ClickedOut(7))
 tmmini2.config(command=lambda:ClickedOut(8))
 
+
+
 submit2 = Button(Page4, text="Submit", command=SubmitExit); submit2.grid(row=8, column=5)
-
-
 # -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
 
 gerbangMasuk = sheet2['B' + str(sheet2.max_row)].value
 gerbangKeluar = sheet2['E' + str(sheet2.max_row)].value
-
 
 Semarang_tol = (["Bawen",23.1],
                 ["Semarang",0],
@@ -269,42 +275,45 @@ Semarang = False
 Jakarta = False
 Surabaya = False
 jarak = 0
-for i in range(3):
-    if gerbangMasuk == Semarang_tol[i][0]:
-        jarak = jarak + Semarang_tol[i][1]
-        sheet2.cell(column=3, row=sheet2.max_row, value=Semarang_tol[i][1])
-        Semarang = True
-    if gerbangMasuk == Jakarta_tol[i][0]:
-        jarak = jarak + Jakarta_tol[i][1]
-        sheet2.cell(column=3, row=sheet2.max_row, value=Jakarta_tol[i][1])
-        Jakarta = True
-    if gerbangMasuk == Surabaya_tol[i][0]:
-        jarak = jarak + Surabaya_tol[i][1]
-        sheet2.cell(column=3, row=sheet2.max_row, value=Surabaya_tol[i][1])
-        Surabaya = True
-for j in range(3):
-    if gerbangKeluar == Semarang_tol[j][0]:
-        jarak = jarak + Semarang_tol[j][1]
-        sheet2.cell(column=6, row=sheet2.max_row, value=Semarang_tol[i][1])
-        Semarang = True
-    if gerbangKeluar == Jakarta_tol[j][0]:
-        jarak = jarak + Jakarta_tol[j][1]
-        sheet2.cell(column=6, row=sheet2.max_row, value=Jakarta_tol[i][1])
-        Jakarta = True
-    if gerbangKeluar == Surabaya_tol[j][0]:
-        jarak = jarak + Surabaya_tol[j][1]
-        sheet2.cell(column=6, row=sheet2.max_row, value=Surabaya_tol[i][1])
-        Surabaya = True
-if Surabaya == True and Jakarta == True:
-    jarak = jarak + 797
-elif Surabaya == True and Semarang == True:
-    jarak = jarak + 351
-elif Jakarta == True and Semarang == True:
-    jarak = jarak + 446
-# print(f"Total jarak yang ditempuh adalah {jarak}")
-sheet2.cell(column=8, row=sheet2.max_row, value=jarak)
 
+def hitungJarak():
+    for i in range(3):
+        if gerbangMasuk == Semarang_tol[i][0]:
+            jarak = jarak + Semarang_tol[i][1]
+            sheet2.cell(column=3, row=sheet2.max_row, value=Semarang_tol[i][1])
+            Semarang = True
+        if gerbangMasuk == Jakarta_tol[i][0]:
+            jarak = jarak + Jakarta_tol[i][1]
+            sheet2.cell(column=3, row=sheet2.max_row, value=Jakarta_tol[i][1])
+            Jakarta = True
+        if gerbangMasuk == Surabaya_tol[i][0]:
+            jarak = jarak + Surabaya_tol[i][1]
+            sheet2.cell(column=3, row=sheet2.max_row, value=Surabaya_tol[i][1])
+            Surabaya = True
+    for j in range(3):
+        if gerbangKeluar == Semarang_tol[j][0]:
+            jarak = jarak + Semarang_tol[j][1]
+            sheet2.cell(column=6, row=sheet2.max_row, value=Semarang_tol[i][1])
+            Semarang = True
+        if gerbangKeluar == Jakarta_tol[j][0]:
+            jarak = jarak + Jakarta_tol[j][1]
+            sheet2.cell(column=6, row=sheet2.max_row, value=Jakarta_tol[i][1])
+            Jakarta = True
+        if gerbangKeluar == Surabaya_tol[j][0]:
+            jarak = jarak + Surabaya_tol[j][1]
+            sheet2.cell(column=6, row=sheet2.max_row, value=Surabaya_tol[i][1])
+            Surabaya = True
+    if Surabaya == True and Jakarta == True:
+        jarak = jarak + 797
+    elif Surabaya == True and Semarang == True:
+        jarak = jarak + 351
+    elif Jakarta == True and Semarang == True:
+        jarak = jarak + 446
+    # print(f"Total jarak yang ditempuh adalah {jarak}")
+    sheet2.cell(column=7, row=sheet2.max_row, value=jarak)
+    file.save(r'database.xlsx')
 
+Button(Page5, text="Tampilkan Hasil", command="hitungJarak").place(x=50, y=10)
 
 file.save(r'database.xlsx')
 
