@@ -5,8 +5,8 @@ from tkinter import *
 from datetime import date, datetime
 from PIL import ImageTk, Image
 import pyrebase, tkinter
-import webbrowser
-import openpyxl, xlrd
+import openpyxl
+import xlrd
 
 firebaseConfig={'apiKey': "AIzaSyDR4ZslCMZgrl2O1DDzBgoaspzzTScCYoE",
     'authDomain': "tubes1-6911.firebaseapp.com",
@@ -43,7 +43,7 @@ showFrame(Page1)
 
 file = openpyxl.load_workbook('database.xlsx')
 fileSheet = file.sheetnames
-sheet1 = file["user"]
+sheet1 = file["database user"]
 sheet2 = file["log"]
 
 # -- PAGE 1 -- # (Login Signup Page)
@@ -67,32 +67,34 @@ def Signup():
     try:
         auth.create_user_with_email_and_password(signupEmail.get(), signupPass.get())
         LabelSignedUp = Label(Page1, text="Successfully created an account!"); LabelSignedUp.pack()
-        mail = emailSignup.get(); password = passSignup.get(); saldo = saldoSignup.get(); name = nameSignup.get() 
+        mail = emailSignup.get(); password = passSignup.get(); saldoDaftar = saldoSignup.get(); name = nameSignup.get() 
         sheet1.cell(column=1, row=sheet1.max_row+1, value=mail)
         sheet1.cell(column=2, row=sheet1.max_row, value=name)
         sheet1.cell(column=4, row=sheet1.max_row, value=password)
-        sheet1.cell(column=5, row=sheet1.max_row, value=saldo)
+        sheet1.cell(column=5, row=sheet1.max_row, value=saldoDaftar)
         file.save(r'database.xlsx')
-        emailSignup.set(''); passSignup.set(''); saldo = saldoSignup.set(''); name = nameSignup.set('') 
+        emailSignup.set(''); passSignup.set(''); saldoDaftar = saldoSignup.set(''); name = nameSignup.set('') 
     except:
-        failSignedUp = Label(Page1, text="Sign Up Failed"); failSignedUp.pack()
+        failSignedUp = Label(Page1, text="Sign Up Failed", width=100); failSignedUp.pack()
 
-font = ("Montserrat", 10, "bold")
+font = ("Montserrat", 14, "bold")
 mailSignin = StringVar(); passSignin = StringVar()
-Label(Page1, text="Input ID", font= font).pack()
-loginEmail = Entry(Page1, textvariable=mailSignin, width=100); loginEmail.pack();
+Label(Page1, text="Sign In", font= font, pady=(5)).pack()
+Label(Page1, text="E-mail", font=("Calibri", 11), pady=10).pack()
+loginEmail = Entry(Page1, textvariable=mailSignin, width=100); loginEmail.pack()
+Label(Page1, text="Password", font=("Calibri", 11), pady=10).pack()
 loginPass = Entry(Page1, width=100); loginPass.pack()
 LoginButton = Button(Page1, text="Login", command=Login); LoginButton.pack()
 
 emailSignup = StringVar(); passSignup = StringVar(); saldoSignup = IntVar(); saldoSignup.set(''); nameSignup = StringVar()
-Label(Page1, text="Create Account", font=font).pack()
-Label(Page1, text="E-Mail", font=("Lato", 12, 'bold')).pack()
+Label(Page1, text="Create Account", font=font, pady=(10)).pack()
+Label(Page1, text="E-Mail", font=("Calibri", 11), pady=10).pack()
 signupEmail = Entry(Page1, textvariable=emailSignup, width=100); signupEmail.pack()
-Label(Page1, text="Nama", font=("Lato", 12, 'bold')).pack()
+Label(Page1, text="Nama", font=("Calibri", 11), pady=10).pack()
 signupName = Entry(Page1, textvariable=nameSignup, width=100); signupName.pack()
-Label(Page1, text="Password", font=("Lato", 12, 'bold')).pack()
+Label(Page1, text="Password", font=("Calibri", 11), pady=10).pack()
 signupPass = Entry(Page1, textvariable=passSignup, width=100); signupPass.pack()
-Label(Page1, text="Saldo Awal", font=("Lato", 12, 'bold')).pack()
+Label(Page1, text="Saldo Awal", font=("Calibri", 11), pady=10).pack()
 firstSaldo = Entry(Page1, textvariable=saldoSignup, width=100); firstSaldo.pack()
 # reviewSignupPass = Entry(Page1, width=100); reviewSignupPass.pack()
 SignupButton = Button(Page1, text="Sign Up", command=Signup); SignupButton.pack()
@@ -100,24 +102,42 @@ SignupButton = Button(Page1, text="Sign Up", command=Signup); SignupButton.pack(
 # if reviewSignupPass.get() != signupPass:
 #     PassnotSame = Label()
 
-def firebaseconsole():
-    webbrowser.open("https://console.firebase.google.com/u/0/project/tubes1-6911/authentication/users")
-startButton = Button(Page1, text="Manage", command=firebaseconsole); startButton.pack()
-next = Button(Page1, text="Next", command=lambda: showFrame(Page2)); next.pack()
-
-
 #-- ACCOUNT DASHBOARD --#
+
+
 def openAcc():
     dashboard = Toplevel()
     dashboard.geometry('400x500')
     dashboard.title("Account Dashboard")
     Label(dashboard, text="Account Management", font=("Montserrat", 16, 'bold')).place(x=40, y=10)
     Label(dashboard, text="Email", font=("Calibri", 12, 'bold')).place(x=40, y=70)
+    Label(dashboard, text="Name", font=("Calibri", 12, 'bold')).place(x=40, y=110)
+    Label(dashboard, text="Saldo", font=("Calibri", 12, 'bold')).place(x=40, y=150)
+    Label(dashboard, text="Histori", font=("Calibri", 12, 'bold')).place(x=40, y=190)
     for row in range(1, sheet1.max_row+1):
         if userAcc == sheet1['A' + str(row)].value:
-            saldo = sheet1['E' + str(row)].value
+            Label(dashboard, text=sheet1['B' + str(row)].value, font=("Calibri", 12), padx=10, bg='#f9fbff').place(x=100, y=110)
+            Label(dashboard, text=sheet1['E' + str(row)].value, font=("Calibri", 12), padx=10, bg='#f9fbff').place(x=100, y=150)
+    count=0
     Label(dashboard, text=userAcc, font=("Calibri", 12), padx = 10, bg='#f9fbff').place(x=100, y=70)
-    Label(dashboard, text=saldo, font=("Calibri", 12), padx=10, bg=bgcolor).place(x=100, y=100)
+    for row in range(1, sheet2.max_row):
+        if userAcc == sheet2['H' + str(row)].value:
+            Label(dashboard, text=sheet2['B' + str(row)].value, padx = 5, bg='#f9fbff').place(x=100, y=190+(count*30))
+            count+=1
+    def windowRefill():
+        def isiSaldo():
+            for row in range(1, sheet1.max_row+1):
+                if userAcc == sheet1['A' + str(row)].value:
+                    sheet1['E' + str(row)].value
+                    file.save(r'database.xlsx')
+        refill = Toplevel()
+        refill.geometry('100x100')
+        Label(refill, text="ISI ULANG").pack(side=TOP)
+        Entry(refill, width=75).pack()
+        Button(refill, text="ISI", command=isiSaldo).pack(side=BOTTOM)
+        refill.mainloop()
+    Button(dashboard, text="ISI SALDO", command=windowRefill).place(x=250, y=130)
+    
 
     dashboard.mainloop()
 
@@ -126,11 +146,10 @@ def openAcc():
 
 
 bgcolor = '#f9fbff'
-Label(Page2, text="Pilih Golongan Kendaraan", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=10)
+Label(Page2, text="Pilih Golongan Kendaraan", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=20)
 Button(Page2, text="Next", command=lambda: showFrame(Page3)).place(x=50, y=100)
 accPhoto = PhotoImage(file='image/Akun.png')
-user = Button(Page2, image=accPhoto, command=openAcc); user.place(x=90, y=10)
-
+user = Button(Page2, image=accPhoto, command=openAcc); user.place(x=width-70, y=20)
 
 # ------ PAGE 3 ----- # (Gerbang Masuk)
 
@@ -166,6 +185,17 @@ Label(Page3, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000'
 tol2 = Label(Page3, text="Tol Surabaya", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 3, column = 1)
 tol3 = Label(Page3, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 5, column = 1)
 
+
+Semarang_tol = (["Bawen",23.1],
+                ["Semarang",0],
+                ["Solo",40])
+Surabaya_tol =( ["Tambak Oso",9],
+                ["Tambak Sumur",5],
+                ["Juanda",12.8])
+Jakarta_tol = ( ["Serpong",10.1],
+                ["Tanjung Priok",12.1],
+                ["Taman Mini",4.5])
+
 button = [bawen, semarang, solo, tboso, tbsumur, juanda, serpong, tjpriok, tmmini]; txtButton = ['Bawen', 'Semarang', 'Solo','Tambak Oso','Tambak Sumur','Juanda','Serpong','Tanjung Priok','Taman Mini']
 def ClickedIn(indexTolMasuk):
     for i in range(len(button)):
@@ -177,12 +207,18 @@ def ClickedIn(indexTolMasuk):
 def SubmitIn():
     global gtMasuk
     for i in range(len(button)):
+        
         if i == entryNumber:
-            # hasil = Label(Page3, text=txtButton[i]); hasil.grid(row=9, column=5)
-            # hasil = Label(Page2, textvariable=v, text=txtButton[i]); hasil.grid(row=7, column=5)
-            gtMasuk = str(txtButton[i]); 
+            if i < 3:
+                kmMasuk = Semarang_tol[i%3][1]
+            elif 3 <= i < 6:
+                kmMasuk = Surabaya_tol[i%3][1]
+            elif 6 <= i < 9:
+                kmMasuk = Jakarta_tol[i%3][1]
+            gtMasuk = str(txtButton[i])
             sheet2.cell(column=1, row=sheet2.max_row, value=waktuMasuk)
             sheet2.cell(column=2, row=sheet2.max_row, value=gtMasuk)
+            sheet2.cell(column=3, row=sheet2.max_row, value=kmMasuk)
             file.save(r'database.xlsx')
     if entryNumber != '':
         showFrame(Page4)
@@ -230,16 +266,21 @@ def ClickedOut(indexTolKeluar):
     exitNumber = int(indexTolKeluar)
 
 def SubmitExit():
+    global gtKeluar
     for i in range(len(button2)):
         if i == exitNumber:
+            if i < 3:
+                kmKeluar = Semarang_tol[i%3][1]
+            elif 3 <= i < 6:
+                kmKeluar = Surabaya_tol[i%3][1]
+            elif 6 <= i < 9:
+                kmKeluar = Jakarta_tol[i%3][1]
             # hasil = Label(Page3, text=txtButton[i]); hasil.grid(row=9, column=5)
             # hasil = Label(Page2, textvariable=v, text=txtButton[i]); hasil.grid(row=7, column=5)
-            global gtKeluar
             gtKeluar = str(txtButton2[i])
             sheet2.cell(column=4, row=sheet2.max_row, value=waktuKeluar)
             sheet2.cell(column=5, row=sheet2.max_row, value=gtKeluar)
-            # sheet2.cell(column=9, row=sheet2.max_row, value=userAcc)
-            
+            sheet2.cell(column=6, row=sheet2.max_row, value=kmKeluar)
             file.save(r'database.xlsx')
     if exitNumber != '':
         showFrame(Page5)
@@ -257,10 +298,8 @@ tmmini2.config(command=lambda:ClickedOut(8))
 
 
 submit2 = Button(Page4, text="Submit", command=SubmitExit); submit2.grid(row=8, column=5)
-# -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
 
-gerbangMasuk = sheet2['B' + str(sheet2.max_row)].value
-gerbangKeluar = sheet2['E' + str(sheet2.max_row)].value
+# -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
 
 Semarang_tol = (["Bawen",23.1],
                 ["Semarang",0],
@@ -278,28 +317,28 @@ jarak = 0
 
 def hitungJarak():
     for i in range(3):
-        if gerbangMasuk == Semarang_tol[i][0]:
+        if gtMasuk == Semarang_tol[i][0]:
             jarak = jarak + Semarang_tol[i][1]
             sheet2.cell(column=3, row=sheet2.max_row, value=Semarang_tol[i][1])
             Semarang = True
-        if gerbangMasuk == Jakarta_tol[i][0]:
+        if gtMasuk == Jakarta_tol[i][0]:
             jarak = jarak + Jakarta_tol[i][1]
             sheet2.cell(column=3, row=sheet2.max_row, value=Jakarta_tol[i][1])
             Jakarta = True
-        if gerbangMasuk == Surabaya_tol[i][0]:
+        if gtMasuk == Surabaya_tol[i][0]:
             jarak = jarak + Surabaya_tol[i][1]
             sheet2.cell(column=3, row=sheet2.max_row, value=Surabaya_tol[i][1])
             Surabaya = True
     for j in range(3):
-        if gerbangKeluar == Semarang_tol[j][0]:
+        if gtKeluar == Semarang_tol[j][0]:
             jarak = jarak + Semarang_tol[j][1]
             sheet2.cell(column=6, row=sheet2.max_row, value=Semarang_tol[i][1])
             Semarang = True
-        if gerbangKeluar == Jakarta_tol[j][0]:
+        if gtKeluar == Jakarta_tol[j][0]:
             jarak = jarak + Jakarta_tol[j][1]
             sheet2.cell(column=6, row=sheet2.max_row, value=Jakarta_tol[i][1])
             Jakarta = True
-        if gerbangKeluar == Surabaya_tol[j][0]:
+        if gtKeluar == Surabaya_tol[j][0]:
             jarak = jarak + Surabaya_tol[j][1]
             sheet2.cell(column=6, row=sheet2.max_row, value=Surabaya_tol[i][1])
             Surabaya = True
@@ -317,5 +356,9 @@ Button(Page5, text="Tampilkan Hasil", command="hitungJarak").place(x=50, y=10)
 
 file.save(r'database.xlsx')
 
+if 'userAcc' in globals():
+    print("True")
+else:
+    print("False")
 
 windowUtama.mainloop()
