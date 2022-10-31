@@ -34,6 +34,7 @@ Page2 = Frame(windowUtama, width=width, height=height); Page2.grid(row=0, column
 Page3 = Frame(windowUtama, width=width, height=height); Page3.grid(row=0, column=0, sticky='nsew')
 Page4 = Frame(windowUtama, width=width, height=height); Page4.grid(row=0, column=0, sticky='nsew')
 Page5 = Frame(windowUtama, width=width, height=height); Page5.grid(row=0, column=0, sticky='nsew')
+Page6 = Frame(windowUtama, width=width, height=height); Page6.grid(row=0, column=0, sticky='nsew')
 # icon = Image.open('icon toll.png'); ico = ImageTk.PhotoImage(icon); Page1.wm_iconphoto(False, ico)
 windowUtama.configure(bg='#f0f4fa')
 
@@ -394,10 +395,11 @@ def Bayar():
             saldo = sheet1['E' + str(row)].value 
             pay = sheet2.cell(column=12, row=sheet2.max_row).value
             if saldo < pay:
-                Label(Page5, text="Saldo Anda Kurang").place(x=900, y=900)
+                Label(Page5, text="Saldo Anda Kurang").place(x=900, y=height-100)
             else:
                 saldo = saldo - pay
-                Label(Page5, text="saldo anda sisa " + str(saldo)).place(x=700, y=800)
+                Label(Page6, text="saldo anda saat ini adalah " + str(saldo), font=("Montserrat", 30, 'bold')).place(x=width/2-150, y=height/2-50)
+                showFrame(Page6)
             sheet1.cell(row=row, column=5, value=saldo)
             file.save(r'database.xlsx')    
     # if pay > dompet:
@@ -407,5 +409,13 @@ def Bayar():
 
 
 end = Button(Page5, text="Submit", font=("Lato", 15, 'bold'), padx=12, pady=3, state=NORMAL, command=Bayar); end.place(x=width/2 - 20, y=height-200)
+
+
+#--PAGE 6 --#
+
+def Quit():
+    windowUtama.destroy()
+
+Button(Page6, text="QUIT", command=Quit).place(x=(width/2)-150, y=height-100)
 
 windowUtama.mainloop()

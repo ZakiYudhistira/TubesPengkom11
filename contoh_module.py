@@ -1,6 +1,7 @@
 from tkinter import *
 dashboard = Tk()
 dashboard.state('zoomed')
+print(dashboard.winfo_screenheight())
 dashboard.title("Account Dashboard")
 Label(dashboard, text="Biaya Perjalanan", font=("Montserrat", 60, 'bold')).place(x=180, y=70)
 Label(dashboard, text="12.000", font=("Montserrat", 50, 'bold')).place(x=180, y=170)
