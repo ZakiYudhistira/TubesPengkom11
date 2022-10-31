@@ -398,7 +398,7 @@ def Bayar():
                 Label(Page5, text="Saldo Anda Kurang").place(x=900, y=height-100)
             else:
                 saldo = saldo - pay
-                Label(Page6, text="Saldo Anda sisa : Rp." + str(12000), font=("Montserrat",20, 'bold')).place(x=180, y=400)
+                Label(Page6, text="Saldo Anda sisa : Rp." + str(saldo), font=("Montserrat",20, 'bold')).place(x=180, y=400)
                 Label(Page6, text="Semoga Selamat Sampai Tujuan !", font=("Montserrat", 20, 'bold')).place(x=180, y=350)
                 showFrame(Page6)
             sheet1.cell(row=row, column=5, value=saldo)
@@ -417,5 +417,5 @@ end = Button(Page5, text="Submit", font=("Lato", 15, 'bold'), padx=12, pady=3, s
 def Quit():
     windowUtama.destroy()
 
-Button(Page6, text="Keluar Tol", font=("Lato", 20, 'bold'),padx=40, pady=25).place(x=180, y=460)
+Button(Page6, text="Keluar Tol", font=("Lato", 20, 'bold'),padx=40, pady=25, command=Quit).place(x=180, y=460)
 windowUtama.mainloop()
