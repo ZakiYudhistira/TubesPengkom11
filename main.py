@@ -391,14 +391,22 @@ user = Button(Page5, image=accPhoto, command=openAcc); user.place(x=width-70, y=
 def Bayar():
     for row in range(1, sheet1.max_row+1):
         if userAcc == sheet1['A' + str(row)].value:
+            
+            saldo = sheet1['E' + str(row)].value 
             pay = sheet2.cell(column=12, row=sheet2.max_row).value
-            dompet = sheet1['E' + str(row)].value
-        if pay > dompet:
-            end.config(state=DISABLED)
-        else:
-            end.config(state=NORMAL)
+            if saldo < pay:
+                Label(Page5, text="Saldo Anda Kurang").place(x=900, y=900)
+            else:
+                saldo = saldo - pay
+                Label(Page5, text="saldo anda sisa " + str(saldo)).place(x=700, y=800)
+            sheet1.cell(row=row, column=5, value=saldo)
+            file.save(r'database.xlsx')    
+    # if pay > dompet:
+    #     end.config(state=DISABLED)
+    # else:
+    #     end.config(state=NORMAL)
 
 
-end = Button(Page5, text="Submit", font=("Lato", 15, 'bold'), padx=12, pady=3, state=NORMAL); end.place(x=width/2 - 20, y=height-200)
+end = Button(Page5, text="Submit", font=("Lato", 15, 'bold'), padx=12, pady=3, state=NORMAL, command=Bayar); end.place(x=width/2 - 20, y=height-200)
 
 windowUtama.mainloop()
