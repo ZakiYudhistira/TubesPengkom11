@@ -106,7 +106,7 @@ SignupButton = Button(Page1, text="Sign Up", command=Signup); SignupButton.pack(
 
 
 def openAcc():
-    dashboard = Toplevel()
+    dashboard = Toplevel(windowUtama)
     dashboard.geometry('400x500')
     dashboard.title("Account Dashboard")
     Label(dashboard, text="Account Management", font=("Montserrat", 16, 'bold')).place(x=40, y=10)
@@ -117,7 +117,7 @@ def openAcc():
     for row in range(1, sheet1.max_row+1):
         if userAcc == sheet1['A' + str(row)].value:
             Label(dashboard, text=sheet1['B' + str(row)].value, font=("Calibri", 12), padx=10, bg='#f9fbff').place(x=100, y=110)
-            Label(dashboard, text=sheet1['E' + str(row)].value, font=("Calibri", 12), padx=10, bg='#f9fbff').place(x=100, y=150)
+            saldo = Label(dashboard, text=sheet1['E' + str(row)].value, font=("Calibri", 12), padx=10, bg='#f9fbff'); saldo.place(x=100, y=150)
     count=0
     Label(dashboard, text=userAcc, font=("Calibri", 12), padx = 10, bg='#f9fbff').place(x=100, y=70)
     for row in range(1, sheet2.max_row):
@@ -128,12 +128,14 @@ def openAcc():
         def isiSaldo():
             for row in range(1, sheet1.max_row+1):
                 if userAcc == sheet1['A' + str(row)].value:
-                    sheet1['E' + str(row)].value
+                    sheet1['E' + str(row)].value += int(entrySaldo.get())
                     file.save(r'database.xlsx')
-        refill = Toplevel()
+                    saldo = Label(dashboard, text=sheet1['E' + str(row)].value, font=("Calibri", 12), padx=10, bg='#f9fbff'); saldo.place(x=100, y=150)
+                    refill.destroy()
+        refill = Toplevel(dashboard)
         refill.geometry('100x100')
         Label(refill, text="ISI ULANG").pack(side=TOP)
-        Entry(refill, width=75).pack()
+        entrySaldo = Entry(refill, width=75); entrySaldo.pack()
         Button(refill, text="ISI", command=isiSaldo).pack(side=BOTTOM)
         refill.mainloop()
     Button(dashboard, text="ISI SALDO", command=windowRefill).place(x=250, y=130)
@@ -162,6 +164,8 @@ gol1 = Button(Page2, image=fotogol1, state=NORMAL)
 gol2 = Button(Page2, image=fotogol2, state=NORMAL)
 gol3 = Button(Page2, image=fotogol3, state=NORMAL)
 arrGolongan = [gol1, gol2, gol3]
+harGolonganJS = [800, 1200, 1600]
+harGolonganSS = [950, 1450, 1900]
 
 def ClickedGol(indexGolongan):
     for i in range(len(arrGolongan)):
@@ -172,7 +176,7 @@ def ClickedGol(indexGolongan):
 
 def SubmitGol():
     global golKendaraan
-    sheet2.cell(column=9, row=sheet2.max_row, value=golNumber)
+    sheet2.cell(column=9, row=sheet2.max_row, value=golNumber+1)
     file.save(r'database.xlsx')
     if golNumber != '':
         showFrame(Page3)
@@ -328,7 +332,41 @@ def SubmitExit():
             sheet2.cell(column=6, row=sheet2.max_row, value=kmKeluar)
             file.save(r'database.xlsx')
     if exitNumber != '':
+        In = sheet2.cell(column=10, row=sheet2.max_row).value; Out = sheet2.cell(column=11, row=sheet2.max_row).value
+        jarak = sheet2.cell(column=6, row=sheet2.max_row).value + sheet2.cell(column=3, row=sheet2.max_row).value
+        tarifAkhir = sheet2.cell(column=12, row=sheet2.max_row).value #sudah biaya entry dan exit
+        golAkhir = sheet2.cell(column=9, row=sheet2.max_row).value
+        if In == 'Jakarta' and Out == 'Surabaya' or In == 'Surabaya' and Out == 'Jakarta':
+            jarak += 797
+            if golAkhir == 1:
+                tarifAkhir += (351*950) + (446*800)
+            elif golAkhir == 2:
+                tarifAkhir += (351*1450) + (446*1200)
+            elif golAkhir == 3:
+                tarifAkhir += (351*1900) + (446*1200)
+        if In == 'Semarang' and Out == 'Surabaya' or In == 'Surabaya' and Out == 'Semarang':
+            jarak += 351
+            if golAkhir == 1:
+                tarifAKhir += (351*950)
+            elif golAkhir == 2:
+                tarifAkhir += (351*1450)
+            elif golAkhir == 3:
+                tarifAkhir += (351*1900)
+        if In == 'Jakarta' and Out == 'Semarang' or In == 'Semarang' and Out == 'Jakarta':
+            jarak += 446
+            if golAkhir == 1:
+                tarifAKhir += (446*800)
+            elif golAkhir == 2:
+                tarifAkhir += (446*1200)
+            elif golAkhir == 3:
+                tarifAkhir += (446*1900)
+        sheet2.cell(column=7, row=sheet2.max_row, value=jarak)
+        sheet2.cell(column=12, row=sheet2.max_row, value=tarifAkhir)
+        file.save(r'database.xlsx')
+        Label(Page5, text=jarak).place(x=100, y=100)
+        Label(Page5, text=tarifAkhir).place(x=100, y=150)
         showFrame(Page5)
+
 
 bawen2.config(command=lambda:ClickedOut(0))
 semarang2.config(command=lambda:ClickedOut(1))
@@ -346,34 +384,8 @@ submit2 = Button(Page4, text="Submit", command=SubmitExit); submit2.grid(row=8, 
 
 # -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
 
-Semarang_tol = (["Bawen",23.1],
-                ["Semarang",0],
-                ["Solo",40])
-Jakarta_tol = ( ["Tanjung Priok",12.1],
-                ["Serpong",10.1],
-                ["Taman Mini",4.5])
-Surabaya_tol =( ["Juanda",12.8],
-                ["Tambak Sumur",5],
-                ["Tambak Oso",9])
-Semarang = False
-Jakarta = False
-Surabaya = False
-
-def jarakAkhir():
-    In = sheet2.cell(column=10, row=sheet2.max_row).value; Out = sheet2.cell(column=11, row=sheet2.max_row).value
-    jarak = sheet2.cell(column=6, row=sheet2.max_row).value + sheet2.cell(column=3, row=sheet2.max_row).value
-    tarifAkhir = sheet2.cell(column=12, row=sheet2.max_row).value #sudah biaya entry dan exit
-    if In == 'Jakarta' and Out == 'Surabaya' or In == 'Surabaya' and Out == 'Jakarta':
-        jarak += 797
-    if In == 'Semarang' and Out == 'Surabaya' or In == 'Surabaya' and Out == 'Semarang':
-        jarak += 351
-    if In == 'Jakarta' and Out == 'Semarang' or In == 'Semarang' and Out == 'Jakarta':
-        jarak += 446
-    sheet2.cell(column=7, row=sheet2.max_row, value=jarak)
-    file.save(r'database.xlsx')
-    Label(Page5, text=jarak).place(x=100, y=100)
 
 
-Button(Page5, text="Tampilkan Hasil", command=jarakAkhir).place(x=50, y=10)
+Button(Page5, text="Tampilkan Hasil").place(x=50, y=10)
 
 windowUtama.mainloop()
