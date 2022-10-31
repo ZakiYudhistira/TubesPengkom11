@@ -1,6 +1,5 @@
 from cProfile import label
 import pathlib
-# from profile import _Label
 from tkinter import *
 from datetime import date, datetime
 from PIL import ImageTk, Image
@@ -20,7 +19,7 @@ firebaseConfig={'apiKey': "AIzaSyDR4ZslCMZgrl2O1DDzBgoaspzzTScCYoE",
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db=firebase.database(); auth=firebase.auth(); storage=firebase.storage()
-# file = pathlib.Path('database.xlsx')
+
 
 def showFrame(frame):
     frame.tkraise()
