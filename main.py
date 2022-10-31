@@ -34,6 +34,7 @@ Page3 = Frame(windowUtama, width=width, height=height); Page3.grid(row=0, column
 Page4 = Frame(windowUtama, width=width, height=height); Page4.grid(row=0, column=0, sticky='nsew')
 Page5 = Frame(windowUtama, width=width, height=height); Page5.grid(row=0, column=0, sticky='nsew')
 Page6 = Frame(windowUtama, width=width, height=height); Page6.grid(row=0, column=0, sticky='nsew')
+windowUtama.iconbitmap("image/icon toll.ico")
 # icon = Image.open('icon toll.png'); ico = ImageTk.PhotoImage(icon); Page1.wm_iconphoto(False, ico)
 windowUtama.configure(bg='#f0f4fa')
 
@@ -381,7 +382,7 @@ tmmini2.config(command=lambda:ClickedOut(8))
 
 
 
-submit2 = Button(Page4, text="Submit",font=("Montserrat",20), command=SubmitExit); submit2.grid(row=8, column=3)
+submit2 = Button(Page4, text="Bayar",font=("Montserrat",20), command=SubmitExit); submit2.grid(row=8, column=3)
 
 # -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
 Label(Page5, text="Biaya Perjalanan Anda", font=("Montserrat", 60, 'bold')).place(x=180, y=70)
