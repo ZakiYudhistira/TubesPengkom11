@@ -27,8 +27,6 @@ def showFrame(frame):
 
 windowUtama = Tk()
 windowUtama.state('zoomed')
-# windowUtama.rowconfigure(0, weight=1)
-# windowUtama.columnconfigure(0, weight=1)
 windowUtama.title("Welcome to Jasamarga Tol")
 width = int(windowUtama.winfo_screenwidth()); height = int(windowUtama.winfo_screenheight())
 Page1 = Frame(windowUtama, width=width, height=height); Page1.grid(row=0, column=0, sticky='nsew')
@@ -350,7 +348,7 @@ def SubmitExit():
         if In == 'Semarang' and Out == 'Surabaya' or In == 'Surabaya' and Out == 'Semarang':
             jarak += 351
             if golAkhir == 1:
-                tarifAKhir += (351*950)
+                tarifAkhir += (351*950)
             elif golAkhir == 2:
                 tarifAkhir += (351*1450)
             elif golAkhir == 3:
@@ -358,7 +356,7 @@ def SubmitExit():
         if In == 'Jakarta' and Out == 'Semarang' or In == 'Semarang' and Out == 'Jakarta':
             jarak += 446
             if golAkhir == 1:
-                tarifAKhir += (446*800)
+                tarifAkhir += (446*800)
             elif golAkhir == 2:
                 tarifAkhir += (446*1200)
             elif golAkhir == 3:
@@ -366,8 +364,8 @@ def SubmitExit():
         sheet2.cell(column=7, row=sheet2.max_row, value=jarak)
         sheet2.cell(column=12, row=sheet2.max_row, value=tarifAkhir)
         file.save(r'database.xlsx')
-        Label(Page5, text=jarak).place(x=100, y=100)
-        Label(Page5, text=tarifAkhir).place(x=100, y=150)
+        Label(Page5, text="Rp." + str(tarifAkhir), font=("Montserrat", 50, 'bold')).place(x=180, y=170)
+        Label(Page5, text=jarak, font=("Lato", 15, 'bold')).place(x=400, y=270)
         showFrame(Page5)
 
 
@@ -386,9 +384,21 @@ tmmini2.config(command=lambda:ClickedOut(8))
 submit2 = Button(Page4, text="Submit", command=SubmitExit); submit2.grid(row=8, column=5)
 
 # -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
+Label(Page5, text="Biaya Perjalanan", font=("Montserrat", 60, 'bold')).place(x=180, y=70)
+Label(Page5, text="Jarak: ", font=("Montserrat", 15, 'bold')).place(x=180, y=270)
+user = Button(Page5, image=accPhoto, command=openAcc); user.place(x=width-70, y=20)
+
+def Bayar():
+    for row in range(1, sheet1.max_row+1):
+        if userAcc == sheet1['A' + str(row)].value:
+            pay = sheet2.cell(column=12, row=sheet2.max_row).value
+            dompet = sheet1['E' + str(row)].value
+        if pay > dompet:
+            end.config(state=DISABLED)
+        else:
+            end.config(state=NORMAL)
 
 
-
-Button(Page5, text="Tampilkan Hasil").place(x=50, y=10)
+end = Button(Page5, text="Submit", font=("Lato", 15, 'bold'), padx=12, pady=3, state=NORMAL); end.place(x=width/2 - 20, y=height-200)
 
 windowUtama.mainloop()
