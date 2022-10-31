@@ -152,9 +152,9 @@ def openAcc():
 #Tarif subtol Surabaya =450
 
 bgcolor = '#f9fbff'
-Label(Page2, text="Pilih Golongan Kendaraan", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=20)
+Label(Page2, text="Pilih Golongan Kendaraan", font=("Montserrat", 16, "bold"), fg='#000000', pady=10).place(x=50, y=20)
 accPhoto = PhotoImage(file='image/Akun.png')
-user = Button(Page2, image=accPhoto, command=openAcc); user.place(x=width-70, y=20)
+user = Button(Page2, image=accPhoto, command=openAcc); user.place(x=width-100, y=50)
 fotogol1 = PhotoImage(file="image/golongan1.png")
 fotogol2 = PhotoImage(file="image/golongan2.png")
 fotogol3 = PhotoImage(file="image/golongan3.png")
@@ -183,19 +183,18 @@ gol1.config(command=lambda:ClickedGol(0))
 gol2.config(command=lambda:ClickedGol(1))
 gol3.config(command=lambda:ClickedGol(2))
 for i in range(len(arrGolongan)):
-    arrGolongan[i].place(x=100+(i*200), y=60)
+    arrGolongan[i].place(x=100+(i*150), y=100)
 
-Button(Page2, text="Next", command=SubmitGol).place(x=50, y=400)
+Button(Page2, text="Next", command=SubmitGol).place(x=50, y=250)
 
 # ------ PAGE 3 ----- # (Gerbang Masuk)
 
 waktu1 = datetime.now()
 waktuMasuk = waktu1.strftime("%H:%M:%S")
-Label(Page3, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).grid(row=0, column=3)
+Label(Page3, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=width/2-100, y=40)
 
 
 user = Button(Page3, image=accPhoto, command=openAcc); user.grid(row=0, column=6)
-Label(Page3, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 1, column = 1)
 
 bawenPhoto = PhotoImage(file='image/Bawen.png')
 semarangPhoto = PhotoImage(file='image/Semarang.png')
