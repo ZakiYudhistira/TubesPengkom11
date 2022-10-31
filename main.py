@@ -192,10 +192,10 @@ Button(Page2, text="Next", command=SubmitGol).place(x=50, y=250)
 
 waktu1 = datetime.now()
 waktuMasuk = waktu1.strftime("%H:%M:%S")
-Label(Page3, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=width/2-100, y=40)
+Label(Page3, text="Gerbang Masuk", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).grid(row=0, column = 3) 
 
 
-user = Button(Page3, image=accPhoto, command=openAcc); user.grid(row=0, column=6)
+user = Button(Page3, image=accPhoto, command=openAcc); user.grid(row=0, column=1)
 
 bawenPhoto = PhotoImage(file='image/Bawen.png')
 semarangPhoto = PhotoImage(file='image/Semarang.png')
@@ -275,31 +275,32 @@ serpong.config(command=lambda:ClickedIn(6))
 tjpriok.config(command=lambda:ClickedIn(7))
 tmmini.config(command=lambda:ClickedIn(8))
 
-submit = Button(Page3, text="Submit", command=SubmitIn); submit.grid(row=8, column=5)
+submit = Button(Page3, text="Submit",font=("Montserrat",20), command=SubmitIn); submit.grid(row=8, column=2)
 
 
 # -- PAGE 4 -- # (Gerbang Keluar)
 
 waktu2 = datetime.now()
 waktuKeluar = waktu2.strftime("%H:%M:%S")
+user = Button(Page4, image=accPhoto, command=openAcc); user.grid(row=0, column=1)
 
 
-Label(Page4, text="Gerbang Keluar", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=10)
+Label(Page4, text="Gerbang Keluar", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).grid(row = 0, column = 5)
 # Label(Page4, text=gtMasuk).place(x=10, y=100)
 
 Label(Page4, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 1, column = 1)
-tol22 = Label(Page4, text="Tol Surabaya", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 3, column = 1)
-tol32 = Label(Page4, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 5, column = 1)
+Label(Page4, text="Tol Surabaya", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 3, column = 1)
+Label(Page4, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 5, column = 1)
 
 bawen2 = Button(Page4, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen2.grid(row=2, column = 1); 
-semarang2 = Button(Page4, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang2.grid(row=2, column=2)
-solo2 = Button(Page4, image=soloPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo2.grid(row=2, column=3)
+semarang2 = Button(Page4, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang2.grid(row=2, column=3)
+solo2 = Button(Page4, image=soloPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); solo2.grid(row=2, column=5)
 tboso2 = Button(Page4, image=tbosoPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tboso2.grid(row=4, column=1)
-tbsumur2 = Button(Page4, image=tbsumurPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tbsumur2.grid(row=4, column=2)
-juanda2 = Button(Page4, image=juandaPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); juanda2.grid(row=4, column=3)
+tbsumur2 = Button(Page4, image=tbsumurPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tbsumur2.grid(row=4, column=3)
+juanda2 = Button(Page4, image=juandaPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); juanda2.grid(row=4, column=5)
 serpong2 = Button(Page4, image=serpongPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); serpong2.grid(row=6, column=1)
-tjpriok2 = Button(Page4, image=tjpriokPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tjpriok2.grid(row=6, column=2)
-tmmini2 = Button(Page4, image=tmminiPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tmmini2.grid(row=6, column=3)
+tjpriok2 = Button(Page4, image=tjpriokPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tjpriok2.grid(row=6, column=3)
+tmmini2 = Button(Page4, image=tmminiPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); tmmini2.grid(row=6, column=5)
 
 button2 = [bawen2, semarang2, solo2, tboso2, tbsumur2, juanda2, serpong2, tjpriok2, tmmini2]; txtButton2 = ['Bawen', 'Semarang', 'Solo','Tambak Oso','Tambak Sumur','Juanda','Serpong','Tanjung Priok','Taman Mini']
 
@@ -381,7 +382,7 @@ tmmini2.config(command=lambda:ClickedOut(8))
 
 
 
-submit2 = Button(Page4, text="Submit", command=SubmitExit); submit2.grid(row=8, column=5)
+submit2 = Button(Page4, text="Submit",font=("Montserrat",20), command=SubmitExit); submit2.grid(row=8, column=3)
 
 # -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
 Label(Page5, text="Biaya Perjalanan Anda", font=("Montserrat", 60, 'bold')).place(x=180, y=70)
@@ -395,11 +396,12 @@ def Bayar():
             saldo = sheet1['E' + str(row)].value 
             pay = sheet2.cell(column=12, row=sheet2.max_row).value
             if saldo < pay:
-                Label(Page5, text="Saldo Anda Kurang").place(x=900, y=height-100)
+                Label(Page5, text="SALDO ANDA KURANG !",font=("Impact",48),fg='#f00').place(x=180, y=330)
+                Label(Page5, text="Mohon isi kembali saldo Anda",font=("Montserrat",20)).place(x=180, y=420)
             else:
                 saldo = saldo - pay
-                Label(Page6, text="Saldo Anda sisa : Rp." + str(saldo), font=("Montserrat",20, 'bold')).place(x=180, y=400)
-                Label(Page6, text="Semoga Selamat Sampai Tujuan !", font=("Montserrat", 20, 'bold')).place(x=180, y=350)
+                Label(Page6, text="Saldo Anda sisa : Rp." + str(saldo), font=("Montserrat",20, 'bold')).place(x=180, y=height/2-200)
+                Label(Page6, text="Semoga Selamat Sampai Tujuan !", font=("Montserrat", 20, 'bold')).place(x=180, y=height/2-160)
                 showFrame(Page6)
             sheet1.cell(row=row, column=5, value=saldo)
             file.save(r'database.xlsx')    
@@ -417,5 +419,5 @@ end = Button(Page5, text="Submit", font=("Lato", 15, 'bold'), padx=12, pady=3, s
 def Quit():
     windowUtama.destroy()
 
-Button(Page6, text="Keluar Tol", font=("Lato", 20, 'bold'),padx=40, pady=25, command=Quit).place(x=180, y=460)
+Button(Page6, text="Keluar Tol", font=("Lato", 20, 'bold'),padx=40, pady=25, command=Quit).place(x=180, y=height/2-100)
 windowUtama.mainloop()
