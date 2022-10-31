@@ -364,7 +364,7 @@ def SubmitExit():
         sheet2.cell(column=12, row=sheet2.max_row, value=tarifAkhir)
         file.save(r'database.xlsx')
         Label(Page5, text="Rp." + str(tarifAkhir), font=("Montserrat", 50, 'bold')).place(x=180, y=170)
-        Label(Page5, text=jarak, font=("Lato", 15, 'bold')).place(x=400, y=270)
+        Label(Page5, text=str(jarak)+" km", font=("Lato", 20, 'bold')).place(x=280, y=275)
         showFrame(Page5)
 
 
@@ -383,8 +383,8 @@ tmmini2.config(command=lambda:ClickedOut(8))
 submit2 = Button(Page4, text="Submit", command=SubmitExit); submit2.grid(row=8, column=5)
 
 # -- PAGE 5 -- # (Saldo dan Hasil Perjalanan)
-Label(Page5, text="Biaya Perjalanan", font=("Montserrat", 60, 'bold')).place(x=180, y=70)
-Label(Page5, text="Jarak: ", font=("Montserrat", 15, 'bold')).place(x=180, y=270)
+Label(Page5, text="Biaya Perjalanan Anda", font=("Montserrat", 60, 'bold')).place(x=180, y=70)
+Label(Page5, text="Jarak : ", font=("Montserrat", 20, 'bold')).place(x=180, y=275)
 user = Button(Page5, image=accPhoto, command=openAcc); user.place(x=width-70, y=20)
 
 def Bayar():
@@ -394,10 +394,11 @@ def Bayar():
             saldo = sheet1['E' + str(row)].value 
             pay = sheet2.cell(column=12, row=sheet2.max_row).value
             if saldo < pay:
-                Label(Page5, text="Saldo Anda Kurang").place(x=900, y=900)
+                Label(Page5, text="Saldo Anda Kurang").place(x=width/2+120, y=900)
             else:
                 saldo = saldo - pay
-                Label(Page5, text="saldo anda sisa " + str(saldo)).place(x=700, y=800)
+                Label(Page5, text="Saldo Anda sisa : Rp." + str(saldo), font=("Montserrat", 15, 'bold')).place(x=width/2-135, y=800)
+                Label(Page5, text="Semoga Selamat Sampai Tujuan", font=("Montserrat", 15, 'bold')).place(x=width/2-135, y=750)
             sheet1.cell(row=row, column=5, value=saldo)
             file.save(r'database.xlsx')    
     # if pay > dompet:
