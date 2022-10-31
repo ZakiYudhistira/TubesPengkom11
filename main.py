@@ -289,6 +289,9 @@ waktuKeluar = waktu2.strftime("%H:%M:%S")
 Label(Page4, text="Gerbang Keluar", font=("Montserrat", 16, "bold"), fg='#000000', bg=bgcolor, pady=10).place(x=50, y=10)
 # Label(Page4, text=gtMasuk).place(x=10, y=100)
 
+Label(Page4, text="Tol Semarang", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 1, column = 1)
+tol22 = Label(Page4, text="Tol Surabaya", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 3, column = 1)
+tol32 = Label(Page4, text="Tol Jakarta", font=("Montserrat", 13, 'bold'),  fg='#000000', bg=bgcolor).grid(row = 5, column = 1)
 
 bawen2 = Button(Page4, image=bawenPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); bawen2.grid(row=2, column = 1); 
 semarang2 = Button(Page4, image=semarangPhoto, borderwidth=0, bg=bgcolor, padx=5, state=NORMAL); semarang2.grid(row=2, column=2)
